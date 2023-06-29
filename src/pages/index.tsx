@@ -7,7 +7,7 @@ import { SOCKET_EVENTS, nameStorage } from '../consts'
 
 import type { Scores, Score } from '../typings'
 
-const socket = io(process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000')
+const socket = io()
 
 export default function HomePage() {
   const firstRender = useRef(true)
