@@ -51,7 +51,7 @@ export function Game({ addPoint }: GameProps) {
       window.clearInterval(intervalMenuId.current)
       window.removeEventListener('resize', resizeBoardGame)
     }
-  }, [])
+  }, [gameId])
 
   return (
     <div className='relative h-full max-w-[1200px] min-h-[360px] grow' id={`${gameId}-board`}>
