@@ -1,21 +1,33 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import io from 'socket.io-client'
 
 import { BoardGame } from '@/components/BoardGame'
 
-const socket = io('http://localhost:3000')
+import { SOCKET_EVENTS, nameStorage } from '../consts'
+
+import type { Scores, Score } from '../typings'
+
+const socket = io(process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000')
+
 export default function HomePage() {
+  const firstRender = useRef(true)
+
   useEffect(() => {
-    socket.on('connect', () => {
-      console.log('Connected to Socket.io')
+    socket.on(SOCKET_EVENTS.LOAD_TOP_SCORES, (data: Scores) => {
+      console.log(data)
+      window.sessionStorage.setItem(nameStorage, JSON.stringify(data))
     })
 
-    socket.on('disconnect', () => {
-      console.log('Disconnected from Socket.io')
+    socket.on(SOCKET_EVENTS.UPDATE_TOP_SCORES, (scores: Score[] | string) => {
+      if (typeof scores !== 'string') {
+        window.sessionStorage.setItem(nameStorage, JSON.stringify(scores))
+      }
     })
+
+    if (firstRender.current) firstRender.current = false
 
     return () => {
-      socket.disconnect()
+      if (!firstRender.current) socket.disconnect()
     }
   }, [])
 
