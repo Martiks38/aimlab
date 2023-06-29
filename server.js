@@ -36,7 +36,13 @@ app.prepare().then(() => {
   const server = express()
 
   const httpServer = createServer(server)
-  const io = socketIO(httpServer)
+  const io = socketIO(httpServer, {
+    cors: {
+      origin: 'https://aimlab-ashy.vercel.app',
+      methods: ['GET', 'POST'],
+      credentials: true
+    }
+  })
 
   server.get('*', (req, res) => {
     return handle(req, res)
