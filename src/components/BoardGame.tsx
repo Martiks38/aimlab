@@ -17,7 +17,7 @@ interface BoardGameProps {
 
 // Game time
 // thirty seconds
-const timeLeftInit = 30 * 1000
+const timeLeftInit = 15 * 1000
 
 export function BoardGame({ socket }: BoardGameProps) {
   const [state, setState] = useState<'initial' | 'playing' | 'finished'>('initial')
