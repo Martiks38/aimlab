@@ -6,6 +6,7 @@ const socketIO = require('socket.io')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
+const port = parseInt(process.env.PORT || '3000', 10)
 
 const scoresDB = { scores: [] }
 const MAX_NUMBERS_SCORES = 10
@@ -41,7 +42,7 @@ app.prepare().then(() => {
     return handle(req, res)
   })
 
-  httpServer.listen(3000, (err) => {
+  httpServer.listen(port, (err) => {
     if (err) throw err
     console.log('> Ready server')
   })
