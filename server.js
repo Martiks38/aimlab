@@ -37,6 +37,7 @@ app.prepare().then(() => {
 
   const httpServer = createServer(server)
   const io = socketIO(httpServer, {
+    transports: ['polling', 'websocket'],
     cors: {
       origin: 'https://aimlab-ashy.vercel.app',
       methods: ['GET', 'POST'],
