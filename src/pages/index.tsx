@@ -7,7 +7,7 @@ import { SOCKET_EVENTS, nameStorage } from '../consts'
 
 import type { Scores, Score } from '../typings'
 
-const socket = io()
+const socket = io('https://aimlab-ashy.vercel.app')
 
 export default function HomePage() {
   const firstRender = useRef(true)
